@@ -1,6 +1,6 @@
 {
   "name": "embed-visualizer",
-  "version": "1.4.1",
+  "version": "1.4.2-react19",
   "description": "A React Component to render Discord-like embeds",
   "author": "gauthier-th",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjs",
+    "build": "microbundle-crl --no-compress --format modern,cjs --external react,react-dom,react/jsx-runtime",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
     "prepare": "run-s build",
     "test": "run-s test:unit test:lint test:build",
@@ -24,7 +24,7 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^18.2.0"
+    "react": "^18 || ^19"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
@@ -47,8 +47,8 @@
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^8.5.0",
     "prettier": "^2.8.8",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19",
     "react-scripts": "^5.0.1"
   },
   "files": [
@@ -60,5 +60,16 @@
     "simple-markdown": "^0.7.3",
     "twemoji": "^14.0.2"
   },
-  "types": "index.d.ts"
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.modern.js",
+      "require": "./dist/index.js",
+      "types": "./index.d.ts"
+    },
+    "./dist/index.css": "./dist/index.css"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ]
 }
